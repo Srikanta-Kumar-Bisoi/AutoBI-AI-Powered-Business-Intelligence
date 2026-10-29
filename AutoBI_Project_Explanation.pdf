@@ -1,0 +1,218 @@
+%PDF-1.4
+%AutoBI project guide
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 6423 >>
+stream
+q 0.09 0.25 0.42 rg 0 770 612 22 re f Q
+BT /F2 8 Tf 1.000 1.000 1.000 rg 1 0 0 1 54.0 777.0 Tm (AUTOBI  |  PROJECT WALKTHROUGH) Tj ET
+BT /F2 25 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 738.0 Tm (AutoBI Project Explanation) Tj ET
+BT /F1 11 Tf 0.320 0.390 0.470 rg 1 0 0 1 54.0 707.0 Tm (A beginner-friendly guide to the code, workflow, and interview story) Tj ET
+q 0.91 0.95 0.98 rg 54 631.0 504 57.0 re f Q
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 674.0 Tm (What it is: a local browser-based analytics application. FastAPI processes CSV/Excel uploads;) Tj ET
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 661.0 Tm (Pandas and NumPy analyze them; Plotly.js presents charts. "AI insights" are deterministic data) Tj ET
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 648.0 Tm (rules, not a call to a generative AI service.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 617.0 Tm (1. Project overview and workflow) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 600.0 m 558 600.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 592.0 Tm (AutoBI turns a tabular file into a dataset profile, optional cleaned version, exploratory charts, KPI) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 580.0 Tm (cards, data-driven insights, and an evaluated numeric prediction. The usual flow is: upload -> profile) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 568.0 Tm (-> optionally clean -> explore \(EDA\) -> filter KPIs -> review insights/prediction -> optionally) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 556.0 Tm (download cleaned data.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 539.0 Tm (The browser keeps the selected upload in per-tab IndexedDB so it can restore the workspace after a) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 527.0 Tm (reload. For analysis requests, the browser sends the file and selected options to FastAPI again. The) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 515.0 Tm (backend does not keep uploaded data in global server memory.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 495.0 Tm (2. Folder structure and important files) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 478.0 m 558 478.0 l S Q
+q 0.95 0.97 0.985 rg 54 388.0 504 86.0 re f Q
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 460.0 Tm (Project root: README.md, run.bat, test.bat, configure_database.py) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 448.0 Tm (Backend/app/: main.py, analysis.py, cleaning.py, eda.py, kpi.py, ai_analysis.py,) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 436.0 Tm (database.py) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 424.0 Tm (Backend/: requirements.txt, requirements-dev.txt, requirements-lock.txt, .env.example) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 412.0 Tm (Backend/tests/: API, cleaning, EDA, KPI, and AI-analysis tests) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 400.0 Tm (Frontend/: index.html, script.js, style.css) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 379.0 Tm (README.md explains setup and design. Backend/app/main.py connects the HTTP routes to analysis) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 367.0 Tm (functions. Frontend/index.html defines the interface; script.js handles uploads, requests, rendering,) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 355.0 Tm (and navigation; style.css controls its responsive look. run.bat starts the application. test.bat runs) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 343.0 Tm (project checks.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 323.0 Tm (3. Frontend, FastAPI APIs, and communication) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 306.0 m 558 306.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 298.0 Tm (The frontend is HTML, CSS, and JavaScript. FastAPI serves the same interface through Jinja2 and serves) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 286.0 Tm (its static files; the browser can also be hosted separately for development. JavaScript sends) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 274.0 Tm (multipart/form-data requests with the file and options, then receives JSON data or a streamed) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 262.0 Tm (download. Plotly.js turns chart specifications into interactive charts.) Tj ET
+q 0.95 0.97 0.985 rg 54 103.0 504 146.0 re f Q
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 235.0 Tm (GET  /health                      service and optional MySQL status) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 223.0 Tm (POST /api/analyze                 profile, EDA, insights, dashboard charts, default) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 211.0 Tm (prediction) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 199.0 Tm (POST /api/clean                   before/after counts and cleaned preview) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 187.0 Tm (POST /api/clean/download/csv      cleaned CSV download) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 175.0 Tm (POST /api/clean/download/xlsx     cleaned Excel download) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 163.0 Tm (POST /api/eda                     automatic EDA report) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 151.0 Tm (POST /api/eda/cleaned             EDA after selected cleaning options) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 139.0 Tm (POST /api/eda/chart               validate/build a selected chart) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 127.0 Tm (POST /api/kpi/dashboard           filtered KPI cards and charts) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 115.0 Tm (POST /api/predictions             evaluate a selected numeric target) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 94.0 Tm (Typical cycle: the user selects a file; script.js posts it to /api/analyze; main.py validates and) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 82.0 Tm (parses it; analysis modules return JSON; JavaScript renders the metrics, tables, insight cards, and) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 70.0 Tm (Plotly charts. Cleaning and filters use additional requests that include the same file and options.) Tj ET
+q 0.78 0.83 0.88 RG 0.6 w 54 45 m 558 45 l S Q
+BT /F1 8 Tf 0.400 0.450 0.500 rg 1 0 0 1 54.0 30.0 Tm (AutoBI Project Explanation) Tj ET
+BT /F1 8 Tf 0.400 0.450 0.500 rg 1 0 0 1 507.0 30.0 Tm (Page 1 of 3) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 6985 >>
+stream
+q 0.09 0.25 0.42 rg 0 770 612 22 re f Q
+BT /F2 8 Tf 1.000 1.000 1.000 rg 1 0 0 1 54.0 777.0 Tm (AUTOBI  |  PROJECT WALKTHROUGH) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 735.0 Tm (4. Python libraries and why they are used) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 718.0 m 558 718.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 710.0 Tm (- FastAPI: HTTP routes and request handling. Uvicorn: runs the ASGI web application.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 695.0 Tm (- Pandas: reads CSV/Excel and performs tabular profiling, cleaning, grouping, and statistics. NumPy:) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 683.0 Tm (  numerical calculations and safe sampling.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 668.0 Tm (- scikit-learn: median imputation, train/test splitting, linear regression, and evaluation metrics.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 653.0 Tm (- python-multipart: reads uploaded files and form fields. Jinja2: renders the shared HTML template.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 638.0 Tm (- openpyxl and xlrd: read Excel formats; openpyxl also writes .xlsx exports.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 623.0 Tm (- SQLAlchemy: defines the metadata table and database sessions. PyMySQL: MySQL driver.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 611.0 Tm (  python-dotenv: loads Backend/.env.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 596.0 Tm (- Pydantic \(included with FastAPI\): validates request fields and chart selections.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 581.0 Tm (Browser libraries: Bootstrap \(layout/components\) and Plotly.js \(interactive charts\) are loaded from) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 569.0 Tm (CDNs. They need a network connection unless supplied another way.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 549.0 Tm (5. Upload, analysis, cleaning, EDA, charts, and KPIs) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 532.0 m 558 532.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 524.0 Tm (Uploads accept CSV, XLSX, and XLS; the backend rejects unsupported, empty, malformed, oversized, or) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 512.0 Tm (over-limit data. Limits are 25 MiB and 100,000 parsed rows. The overview reports rows, columns,) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 500.0 Tm (missing cells, duplicates, column types, numeric summaries, and a ten-row preview.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 483.0 Tm (Cleaning is optional and does not change the source upload. Options are keep missing values \(default\),) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 471.0 Tm (fill numeric values by mean or median, fill text/boolean values by mode, drop rows with missing cells,) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 459.0 Tm (remove duplicates, and standardize column names. The UI shows before/after counts and preview. Cleaned) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 447.0 Tm (CSV and XLSX files can be downloaded.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 430.0 Tm (EDA reports numeric descriptive statistics and suitable automatic charts such as distributions,) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 418.0 Tm (category counts, box summaries, correlations, scatter relationships, and date trends. Users may) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 406.0 Tm (request a supported chart type \(histogram, bar, pie, scatter, line, or box\) for selected columns.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 394.0 Tm (Data-dependent limits prevent excessively large charts; unsuitable selections return an explanation.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 377.0 Tm (The KPI dashboard applies date and category filters consistently to its cards and charts. It reports) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 365.0 Tm (row counts and supported measures; sales/profit or order/customer/product metrics depend on matching) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 353.0 Tm (column names. If those are absent, it uses suitable generic numeric summaries. It does not guess) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 341.0 Tm (currency or units.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 321.0 Tm (6. Day 5 predictions and AI insights) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 304.0 m 558 304.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 296.0 Tm (Insights are generated locally from data patterns: missing-value concentrations, strong Pearson) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 284.0 Tm (correlations, numeric outliers \(1.5 x IQR\), dominant categories, and date/numeric trends. Each insight) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 272.0 Tm (includes a suggested action. These are rule-based, repeatable explanations; no external AI or LLM) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 260.0 Tm (service is called, and correlation is not proof of cause.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 243.0 Tm (Prediction uses scikit-learn linear regression. The user selects a numeric target; other varying) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 231.0 Tm (numeric columns are features, with missing feature values filled using medians learned from training) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 219.0 Tm (rows. At least eight finite target values and usable numeric features are needed. A deterministic) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 207.0 Tm (75/25 train/holdout split reports MAE, RMSE, and R-squared when defined, with actual-versus-predicted) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 195.0 Tm (values. This evaluates unseen rows; it is not a forecast of future dates. Text features are not used.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 175.0 Tm (7. MySQL, SQLAlchemy, and persistence) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 158.0 m 558 158.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 150.0 Tm (MySQL is optional. When DATABASE_URL is configured in Backend/.env, SQLAlchemy creates/uses the) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 138.0 Tm (dataset_analyses table and stores analysis metadata: filename, row/column counts, missing and) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 126.0 Tm (duplicate counts, column summary, and timestamp. The uploaded dataset rows are not stored in MySQL.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 114.0 Tm (Without a configured database, analysis still works; a failed metadata save is logged and shown as a) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 102.0 Tm (warning.) Tj ET
+q 0.78 0.83 0.88 RG 0.6 w 54 45 m 558 45 l S Q
+BT /F1 8 Tf 0.400 0.450 0.500 rg 1 0 0 1 54.0 30.0 Tm (AutoBI Project Explanation) Tj ET
+BT /F1 8 Tf 0.400 0.450 0.500 rg 1 0 0 1 507.0 30.0 Tm (Page 2 of 3) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 6757 >>
+stream
+q 0.09 0.25 0.42 rg 0 770 612 22 re f Q
+BT /F2 8 Tf 1.000 1.000 1.000 rg 1 0 0 1 54.0 777.0 Tm (AUTOBI  |  PROJECT WALKTHROUGH) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 738.0 Tm (configure_database.py prompts for connection details and writes Backend/.env; keep credentials) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 726.0 Tm (private. In contrast, the browser IndexedDB workspace stores the current upload locally in that) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 714.0 Tm (browser profile for reload recovery.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 694.0 Tm (8. Reports, exports, and application startup) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 677.0 m 558 677.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 669.0 Tm (Implemented exports are cleaned-data CSV and Excel downloads. The Reports navigation/page is a) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 657.0 Tm (placeholder: shareable or generated reports are planned, but report generation/export is not) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 645.0 Tm (implemented. This PDF is documentation, not an AutoBI report feature.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 628.0 Tm (For the recommended Windows setup, create the virtual environment and install the locked packages) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 616.0 Tm (once, then start from the project root. run.bat checks the environment and port, then starts Uvicorn) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 604.0 Tm (with reload. Default address: http://127.0.0.1:8000/. FastAPI docs: /docs. The app can also be tested) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 592.0 Tm (with test.bat.) Tj ET
+q 0.95 0.97 0.985 rg 54 529.0 504 50.0 re f Q
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 565.0 Tm (py -3.14 -m venv .venv) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 553.0 Tm (.\\.venv\\Scripts\\python.exe -m pip install -r Backend\\requirements-lock.txt) Tj ET
+BT /F1 8.3 Tf 0.140 0.250 0.350 rg 1 0 0 1 64.0 541.0 Tm (run.bat) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 517.0 Tm (9. Important functions and their roles) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 500.0 m 558 500.0 l S Q
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 492.0 Tm (- Backend/app/main.py: read_dataset validates/parses uploads; analyze assembles the overview) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 480.0 Tm (  response; clean and download_cleaned_dataset return cleaned previews/downloads; eda, cleaned_eda,) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 468.0 Tm (  selected_eda_chart, kpi_dashboard, and predictions expose analysis APIs.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 453.0 Tm (- Backend/app/analysis.py: analyze_dataframe calculates profile counts, column details, summary,) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 441.0 Tm (  preview, and basic chart data.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 426.0 Tm (- Backend/app/cleaning.py: clean_dataframe applies selected operations to a copy;) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 414.0 Tm (  summarize_dataframe, dataframe_preview, and prepare_excel_export support the UI and exports.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 399.0 Tm (- Backend/app/eda.py: build_eda_report creates bounded statistics/chart specs;) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 387.0 Tm (  build_dashboard_visualizations selects overview charts; build_selected_chart validates a) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 375.0 Tm (  user-selected chart.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 360.0 Tm (- Backend/app/kpi.py: build_kpi_dashboard filters the current dataframe and builds explainable KPI) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 348.0 Tm (  cards and chart data.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 333.0 Tm (- Backend/app/ai_analysis.py: build_ai_analysis/build_automatic_insights create rule-based insights;) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 321.0 Tm (  prediction_targets and build_prediction_report select and evaluate regression targets.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 306.0 Tm (- Backend/app/database.py: DatasetAnalysis maps metadata to SQLAlchemy; persist_analysis writes it) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 294.0 Tm (  when MySQL is configured.) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 279.0 Tm (- Frontend/script.js: analyzeUploadedFile uploads and renders the overview; cleanDataset and) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 267.0 Tm (  downloadCleanedDataset handle cleaning; renderEdaReport/buildSelectedChart show EDA;) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 255.0 Tm (  refreshKpiDashboard renders filtered KPI results; runPrediction sends a selected target;) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 64.0 243.0 Tm (  saveWorkspaceState/restoreWorkspaceOnStartup use IndexedDB.) Tj ET
+BT /F2 13 Tf 0.090 0.250 0.420 rg 1 0 0 1 54.0 225.0 Tm (10. How to explain it in an interview) Tj ET
+q 0.72 0.81 0.88 RG 0.7 w 54 208.0 m 558 208.0 l S Q
+q 0.91 0.95 0.98 rg 54 122.0 504 83.0 re f Q
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 191.0 Tm (?AutoBI is a browser-based BI tool built with a JavaScript frontend and a FastAPI backend. A) Tj ET
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 178.0 Tm (user uploads CSV or Excel data; Pandas and NumPy profile it, optional cleaning preserves the) Tj ET
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 165.0 Tm (original, and EDA/KPI modules return chart-ready data for Plotly. It also provides deterministic) Tj ET
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 152.0 Tm (data insights and a held-out linear-regression evaluation. MySQL is optional and stores analysis) Tj ET
+BT /F1 9 Tf 0.100 0.250 0.380 rg 1 0 0 1 65.0 139.0 Tm (metadata only. The Reports page is currently a placeholder.?) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 111.0 Tm (Good points to mention: clear separation between routes and analysis modules; upload and chart limits;) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 99.0 Tm (cleaning is opt-in; cleaned data is recalculated from the original upload and selected options;) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 87.0 Tm (database persistence degrades gracefully; and the ML result is an evaluation, not a time-series) Tj ET
+BT /F1 9 Tf 0.160 0.200 0.250 rg 1 0 0 1 54.0 75.0 Tm (forecast.) Tj ET
+q 0.78 0.83 0.88 RG 0.6 w 54 45 m 558 45 l S Q
+BT /F1 8 Tf 0.400 0.450 0.500 rg 1 0 0 1 54.0 30.0 Tm (AutoBI Project Explanation) Tj ET
+BT /F1 8 Tf 0.400 0.450 0.500 rg 1 0 0 1 507.0 30.0 Tm (Page 3 of 3) Tj ET
+endstream
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000031 00000 n 
+0000000080 00000 n 
+0000000149 00000 n 
+0000000246 00000 n 
+0000000348 00000 n 
+0000000484 00000 n 
+0000006958 00000 n 
+0000007094 00000 n 
+0000014130 00000 n 
+0000014267 00000 n 
+trailer
+<< /Size 11 /Root 1 0 R >>
+startxref
+21076
+%%EOF

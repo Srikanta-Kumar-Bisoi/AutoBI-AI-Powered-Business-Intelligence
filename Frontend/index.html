@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoBI | AI Business Intelligence</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-initial-page="{{ initial_page | default('overview') }}">
+
+<div class="app">
+  <aside class="sidebar">
+    <h3 class="brand">✦ AutoBI</h3>
+    <p class="muted">BUSINESS INTELLIGENCE</p>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+      <a class="nav-link" data-page="overview" href="/">▦ Overview</a>
+      <a class="nav-link" data-page="cleaning" href="/cleaning">✦ Data Cleaning</a>
+      <a class="nav-link" data-page="eda" href="/eda">◫ EDA</a>
+      <a class="nav-link" data-page="kpi" href="/kpi">▤ KPI Dashboard</a>
+      <a class="nav-link" data-page="reports" href="/reports">▧ Reports</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <span class="status-dot"></span> AI workspace
+    </div>
+
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <p id="pageContext" class="muted mb-1">WORKSPACE / OVERVIEW</p>
+        <h2 id="pageHeading">Overview</h2>
+      </div>
+      <span class="profile">AB</span>
+    </header>
+
+    <div id="dashboardPage">
+    <section id="upload" class="upload-card">
+      <div class="upload-icon">↑</div>
+      <h4>Turn your data into decisions</h4>
+      <p class="muted">Upload a CSV or Excel file to get started.</p>
+
+      <input type="file" id="fileInput"
+             accept=".csv,.xlsx,.xls" hidden>
+
+      <button class="btn btn-primary" id="uploadBtn">
+        Upload Dataset
+      </button>
+
+      <p id="fileName" class="small mt-3 mb-0">
+        Supports CSV, XLSX and XLS
+      </p>
+    </section>
+
+    <section id="analytics" class="mt-4">
+      <h5>Analytics Overview</h5>
+      <p id="analysisStatus" class="muted mb-0" role="status" aria-live="polite">
+        Connect to the API and upload a dataset to begin.
+      </p>
+
+      <div class="row g-3 mt-1">
+        <div class="col-6 col-xl-3">
+          <div class="metric-card">
+            <p class="muted">Total Records</p>
+            <h3 id="records">—</h3>
+          </div>
+        </div>
+
+        <div class="col-6 col-xl-3">
+          <div class="metric-card">
+            <p class="muted">Total Columns</p>
+            <h3 id="columns">—</h3>
+          </div>
+        </div>
+
+        <div class="col-6 col-xl-3">
+          <div class="metric-card">
+            <p class="muted">Missing Values</p>
+            <h3 id="missing">—</h3>
+          </div>
+        </div>
+
+        <div class="col-6 col-xl-3">
+          <div class="metric-card">
+            <p class="muted">Duplicate Rows</p>
+            <h3 id="duplicates">—</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="charts" class="mt-4 metric-card" data-has-content="false" hidden>
+      <h5>Dashboard Visualizations</h5>
+      <div id="chartGrid" class="chart-grid"></div>
+      <div id="dashboardChartMessages" class="chart-messages" hidden></div>
+    </section>
+
+    <section id="preview" class="mt-4 metric-card" data-has-content="false" hidden>
+      <h5>Data Preview <span id="previewCount" class="muted"></span></h5>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-sm mb-0">
+          <thead id="previewHead"></thead>
+          <tbody id="previewBody"></tbody>
+        </table>
+      </div>
+      <h6 class="mt-3">Column names and Pandas data types</h6>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-sm mb-0">
+          <thead id="previewSchemaHead"></thead>
+          <tbody id="previewSchemaBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="cleaning" class="mt-4 metric-card">
+      <h5>Automatic Data Cleaning</h5>
+      <p class="muted">
+        Cleaning is optional. Missing values stay unchanged by default;
+        duplicate removal and column renaming are opt-in.
+      </p>
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-lg-5">
+          <label for="missingStrategy" class="form-label">Missing values</label>
+          <select id="missingStrategy" class="form-select">
+            <option value="keep">Keep unchanged (default)</option>
+            <option value="mean">Fill numeric columns with the mean</option>
+            <option value="median">Fill numeric columns with the median</option>
+            <option value="mode">Fill text/boolean columns with the mode</option>
+            <option value="drop_rows">Drop rows with any missing value</option>
+          </select>
+        </div>
+        <div class="col-12 col-lg-3">
+          <div class="form-check">
+            <input id="removeDuplicates" class="form-check-input" type="checkbox">
+            <label for="removeDuplicates" class="form-check-label">
+              Remove duplicate rows
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-lg-3">
+          <div class="form-check">
+            <input id="standardizeColumns" class="form-check-input" type="checkbox">
+            <label for="standardizeColumns" class="form-check-label">
+              Standardize column names
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-lg-1">
+          <button class="btn btn-primary w-100" id="cleanBtn" disabled>
+            Clean Data
+          </button>
+        </div>
+      </div>
+      <p id="cleanStatus" class="muted mt-3 mb-0" role="status" aria-live="polite">
+        Upload a dataset before choosing cleaning options.
+      </p>
+
+      <div id="cleaningResults" class="mt-4" hidden>
+        <div class="row g-3">
+          <div class="col-12 col-xl-6">
+            <h6>Before cleaning</h6>
+            <div class="row g-2">
+              <div class="col-6"><div class="metric-card"><p class="muted">Rows</p><strong id="beforeRows">—</strong></div></div>
+              <div class="col-6"><div class="metric-card"><p class="muted">Columns</p><strong id="beforeColumns">—</strong></div></div>
+              <div class="col-6"><div class="metric-card"><p class="muted">Missing cells</p><strong id="beforeMissing">—</strong></div></div>
+              <div class="col-6"><div class="metric-card"><p class="muted">Duplicate rows</p><strong id="beforeDuplicates">—</strong></div></div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-6">
+            <h6>After cleaning</h6>
+            <div class="row g-2">
+              <div class="col-6"><div class="metric-card"><p class="muted">Rows</p><strong id="afterRows">—</strong></div></div>
+              <div class="col-6"><div class="metric-card"><p class="muted">Columns</p><strong id="afterColumns">—</strong></div></div>
+              <div class="col-6"><div class="metric-card"><p class="muted">Missing cells</p><strong id="afterMissing">—</strong></div></div>
+              <div class="col-6"><div class="metric-card"><p class="muted">Duplicate rows</p><strong id="afterDuplicates">—</strong></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <button class="btn btn-outline-light" id="downloadCsvBtn" disabled>
+            Download cleaned CSV
+          </button>
+          <button class="btn btn-outline-light" id="downloadExcelBtn" disabled>
+            Download cleaned Excel
+          </button>
+        </div>
+        <p id="removedDuplicates" class="muted mt-3 mb-0"></p>
+      </div>
+    </section>
+
+    <section id="cleanedPreview" class="mt-4 metric-card" data-has-content="false" hidden>
+      <h5>Cleaned Data Preview <span id="cleanedPreviewCount" class="muted"></span></h5>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-sm mb-0">
+          <thead id="cleanedPreviewHead"></thead>
+          <tbody id="cleanedPreviewBody"></tbody>
+        </table>
+      </div>
+      <h6 class="mt-3">Column names and Pandas data types</h6>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-sm mb-0">
+          <thead id="cleanedPreviewSchemaHead"></thead>
+          <tbody id="cleanedPreviewSchemaBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="insights" class="mt-4 insight-card">
+      <h5>✧ AI Insights</h5>
+      <p id="insightText" class="muted mb-0">
+        Upload a dataset to see data-driven trends, correlations, outliers, and patterns.
+      </p>
+      <ul id="insightList" class="insight-list mt-3 mb-0"></ul>
+    </section>
+
+    <section id="predictions" class="mt-4 metric-card">
+      <h5>⌁ Machine Learning</h5>
+      <p class="muted">
+        Compare a lightweight numeric regression model with held-out dataset
+        rows. This estimates unseen-row performance; it does not forecast future periods.
+      </p>
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-8">
+          <label for="predictionTarget" class="form-label">Numeric target</label>
+          <select id="predictionTarget" class="form-select" disabled>
+            <option value="">Upload a dataset to find suitable targets</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-4">
+          <button class="btn btn-primary w-100" id="runPredictionBtn" disabled>
+            Run prediction
+          </button>
+        </div>
+      </div>
+      <p id="predictionStatus" class="muted mt-3 mb-0" role="status" aria-live="polite">
+        Regression is available when the dataset has enough numeric observations and features.
+      </p>
+      <div id="predictionResults" class="mt-4" hidden>
+        <div id="predictionMetrics" class="kpi-grid"></div>
+        <p id="predictionExplanation" class="muted mt-3 mb-0"></p>
+        <div id="predictionChart" class="dataset-chart mt-3" hidden></div>
+      </div>
+    </section>
+    </div>
+
+    <nav id="overviewActions" class="workflow-actions" aria-label="Overview next step">
+      <a class="btn btn-primary" href="/cleaning" data-page="cleaning">Next step: Data Cleaning</a>
+    </nav>
+
+    <nav id="cleaningActions" class="workflow-actions" aria-label="Cleaning workflow" hidden>
+      <a class="btn btn-outline-light" href="/" data-page="overview">Back to Overview</a>
+      <a class="btn btn-primary" href="/eda" data-page="eda">Open EDA</a>
+    </nav>
+
+    <div id="kpiPage" class="page-view" hidden>
+      <section class="page-intro">
+        <p class="eyebrow">BUSINESS PERFORMANCE</p>
+        <h3>Dynamic KPI Dashboard</h3>
+        <p class="muted mb-0">
+          Metrics and charts are calculated from the selected dataset and update
+          with your filters.
+        </p>
+      </section>
+      <section id="kpiEmptyState" class="metric-card mt-4">
+        <h5>No dataset analyzed yet</h5>
+        <p class="muted mb-3">Upload a CSV or Excel dataset from Overview to calculate KPIs.</p>
+        <a class="btn btn-primary" href="/" data-page="overview">Go to upload</a>
+      </section>
+      <section id="kpiWorkspace" class="mt-4" hidden>
+        <div class="metric-card mb-4">
+          <div class="row g-3 align-items-end">
+            <div class="col-12 col-lg-4">
+              <label for="kpiDataSource" class="form-label">Dataset to analyze</label>
+              <select id="kpiDataSource" class="form-select">
+                <option value="original">Original uploaded dataset</option>
+                <option value="cleaned" disabled hidden>Cleaned dataset</option>
+              </select>
+            </div>
+            <div class="col-12 col-lg-4">
+              <label for="kpiDateColumn" class="form-label">Date filter</label>
+              <select id="kpiDateColumn" class="form-select">
+                <option value="">No date filter</option>
+              </select>
+            </div>
+            <div class="col-6 col-lg-2">
+              <label for="kpiDateFrom" class="form-label">From</label>
+              <input id="kpiDateFrom" class="form-control" type="date" disabled>
+            </div>
+            <div class="col-6 col-lg-2">
+              <label for="kpiDateTo" class="form-label">To</label>
+              <input id="kpiDateTo" class="form-control" type="date" disabled>
+            </div>
+            <div class="col-12 col-lg-6">
+              <label for="kpiCategoryColumn" class="form-label">Category filter</label>
+              <select id="kpiCategoryColumn" class="form-select">
+                <option value="">All categories</option>
+              </select>
+            </div>
+            <div class="col-12 col-lg-6">
+              <label for="kpiCategoryValue" class="form-label">Category</label>
+              <select id="kpiCategoryValue" class="form-select" disabled>
+                <option value="">All values</option>
+              </select>
+            </div>
+          </div>
+          <p id="kpiStatus" class="muted mt-3 mb-0" role="status" aria-live="polite"></p>
+        </div>
+        <div id="kpiCards" class="kpi-grid"></div>
+        <div id="kpiMessages" class="chart-messages" hidden></div>
+        <div id="kpiCharts" class="chart-grid"></div>
+      </section>
+    </div>
+
+    <div id="edaPage" class="page-view" hidden>
+      <section class="page-intro">
+        <p class="eyebrow">DATA EXPLORATION</p>
+        <h3>Exploratory Data Analysis</h3>
+        <p class="muted mb-0">
+          Explore dataset-derived distributions, category comparisons,
+          relationships, correlations, and time trends.
+        </p>
+      </section>
+      <section id="edaEmptyState" class="metric-card mt-4">
+        <h5>No dataset analyzed yet</h5>
+        <p class="muted mb-3">Upload a CSV or Excel dataset from Overview to populate these charts.</p>
+        <a class="btn btn-primary" href="/" data-page="overview">Go to upload</a>
+      </section>
+      <section id="edaDataControls" class="mt-4 metric-card" hidden>
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-6">
+            <label for="edaDataSource" class="form-label">Dataset to analyze</label>
+            <select id="edaDataSource" class="form-select">
+              <option value="original">Original uploaded dataset</option>
+              <option value="cleaned" disabled hidden>Cleaned dataset</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <p id="edaDataSourceDescription" class="muted mb-0" role="status" aria-live="polite">
+              Statistics and charts use the original uploaded data.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="eda" class="mt-4 metric-card" hidden>
+        <h4>Numerical descriptive statistics</h4>
+        <p class="muted">
+          Summaries use finite numeric values; missing and non-finite values
+          are reported separately.
+        </p>
+        <div class="table-responsive">
+          <table class="table table-dark table-striped table-sm mb-0">
+            <thead id="edaStatsHead"></thead>
+            <tbody id="edaStatsBody"></tbody>
+          </table>
+        </div>
+        <h4 class="mt-5">Automatic visual analysis</h4>
+        <div id="edaChartGrid" class="chart-grid"></div>
+        <p id="edaChartMessage" class="muted mt-3 mb-0" hidden></p>
+        <p class="muted mt-4 mb-0">
+          Duplicate records are retained unless removed using the optional
+          cleaning controls. Units are shown only when present in column
+          labels; correlation describes association, not causation.
+        </p>
+      </section>
+
+      <section id="chartBuilder" class="mt-4 metric-card" hidden>
+        <h4>Build a chart</h4>
+        <p class="muted">
+          Choose a chart and columns. Only compatible columns are offered.
+        </p>
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-3">
+            <label for="chartType" class="form-label">Chart type</label>
+            <select id="chartType" class="form-select">
+              <option value="histogram">Histogram</option>
+              <option value="bar">Bar</option>
+              <option value="pie">Donut / pie</option>
+              <option value="scatter">Scatter</option>
+              <option value="line">Time series</option>
+              <option value="box">Box plot</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-3">
+            <label id="chartColumnLabel" for="chartColumn" class="form-label">Column</label>
+            <select id="chartColumn" class="form-select"></select>
+          </div>
+          <div class="col-12 col-md-3" id="chartXColumnGroup" hidden>
+            <label id="chartXColumnLabel" for="chartXColumn" class="form-label">X-axis</label>
+            <select id="chartXColumn" class="form-select"></select>
+          </div>
+          <div class="col-12 col-md-3">
+            <button class="btn btn-primary w-100" id="buildChartBtn">
+              Generate chart
+            </button>
+          </div>
+        </div>
+        <p id="selectedChartStatus" class="muted mt-3 mb-0" role="status" aria-live="polite"></p>
+        <div id="selectedChart" class="dataset-chart selected-chart mt-3" hidden></div>
+      </section>
+
+      <section id="cleanedEda" class="mt-4 metric-card" hidden>
+        <h4>Cleaned Data EDA</h4>
+        <h5 class="mt-4">Numerical descriptive statistics</h5>
+        <div class="table-responsive">
+          <table class="table table-dark table-striped table-sm mb-0">
+            <thead id="cleanedEdaStatsHead"></thead>
+            <tbody id="cleanedEdaStatsBody"></tbody>
+          </table>
+        </div>
+        <h5 class="mt-5">Charts for cleaned data</h5>
+        <div id="cleanedEdaChartGrid" class="chart-grid"></div>
+        <p id="cleanedEdaChartMessage" class="muted mt-3 mb-0" hidden></p>
+      </section>
+    </div>
+
+    <nav id="edaActions" class="workflow-actions" aria-label="EDA workflow" hidden>
+      <a class="btn btn-outline-light" href="/cleaning" data-page="cleaning">Back to Data Cleaning</a>
+      <a class="btn btn-primary" href="/kpi" data-page="kpi">Open KPI Dashboard</a>
+    </nav>
+
+    <nav id="kpiActions" class="workflow-actions" aria-label="KPI workflow" hidden>
+      <a class="btn btn-outline-light" href="/eda" data-page="eda">Back to EDA</a>
+      <a class="btn btn-primary" href="/reports" data-page="reports">Next: Reports</a>
+    </nav>
+
+    <div id="reportsPage" class="page-view" hidden>
+      <section class="page-intro">
+        <p class="eyebrow">REPORTING</p>
+        <h3>Reports</h3>
+        <p class="muted mb-0">Shareable reports are planned for a future release.</p>
+      </section>
+      <section class="metric-card mt-4">
+        <h5>Coming soon</h5>
+        <p class="muted mb-3">
+          AutoBI currently provides interactive profiling, cleaning, EDA, and KPI
+          analysis. Exportable report generation is not implemented yet.
+        </p>
+        <a class="btn btn-primary" href="/" data-page="overview">Return to Overview</a>
+      </section>
+    </div>
+
+    <footer class="muted text-center mt-5 mb-3">
+      AutoBI · AI-powered analytics workspace
+    </footer>
+  </main>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="script.js?v=20261027-1"></script>
+</body>
+</html>
